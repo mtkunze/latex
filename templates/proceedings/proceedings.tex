@@ -1,0 +1,104 @@
+\documentclass[
+	runningheads,
+	oneside,
+	a4paper
+]{llncs}
+%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman,english]{babel}
+\usepackage{makeidx}  % allows for indexgeneration
+%
+\usepackage{pdfpages}
+\usepackage{hyperref}
+%
+%
+%
+\usepackage{tocloft}
+\renewcommand\cftchapfont{\normal}
+\renewcommand\cftchappagefont{\normal}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdot}}
+\renewcommand{\cftchapdotsep}{6.6}
+\renewcommand{\cfttoctitlefont}{\large\bfseries}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{0pt}
+%
+\newcommand{\insertpdf}[4]{%
+	\phantomsection
+
+	% author
+	% title
+	% shorttitle
+	% file
+	\addcontentsline{toc}{chapter}{\protect%
+		#1 \\
+		\emph{#2}
+	}
+
+	\thispagestyle{empty}
+	\includepdf[
+		pages=1, 
+%		noautoscale=true, 
+%		offset=0.4cm 0cm,
+	%	width=16cm, 
+	%	height=23cm, 
+		pagecommand={}
+	]{#4}
+		
+	\markboth{
+		\hspace{-13.2em}\hspace{1.166cm}#1
+	}{
+		#3
+	}
+	
+	\includepdf[
+		pages=2-, 
+%		noautoscale=true, 
+%		offset=.4cm 0,
+	%	width=16cm, 
+	%	height=23cm, 
+		pagecommand={}
+	]{#4}
+}
+%
+\begin{document}
+%
+\thispagestyle{empty}
+\includepdf[pages=-]{cover.pdf}
+
+\thispagestyle{headings}
+\section*{Organization}
+...
+
+\vspace{-1em}\subsection*{Steering Committee}
+
+...
+
+\vspace{-2em}\subsection*{Organization, Program Committee Chairs}
+
+...
+
+\vspace{-2em}\subsection*{Program Committee}
+
+...
+
+\vspace{-1em}\subsection*{Additional Reviewers}
+ 
+...
+
+\pagestyle{empty}
+\cleardoublepage
+\tocloftpagestyle{headings}
+\tableofcontents
+\vspace{-.8em}
+\let\thefootnote\relax\footnote{\textsuperscript{*} Title shortened due to excessive length.}
+\cleardoublepage
+\pagestyle{headings}
+
+% 1st Presentation Session: Process Analysis
+\insertpdf{Authors}%
+{longtitle}%
+{shorttile\textsuperscript{*}}%
+{file.pdf}
+
+\end{document}
