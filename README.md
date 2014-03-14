@@ -10,4 +10,4 @@ snippets for certain purposes
 
 ### templates
 some useful templates
-* [proceedings](https://github.com/mtkunze/latex/blob/master/tempaltes/proceedings/proceedings.tex) – Assemble a number of pdf files in a single document, add page numbers. Provides also support for running titles and TOC creation.
+* [proceedings](https://github.com/mtkunze/latex/blob/master/templates/proceedings/proceedings.tex) – Assemble a number of pdf files in a single document, add page numbers. Provides also support for running titles and TOC creation.
