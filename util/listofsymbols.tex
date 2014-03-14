@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Provides a command to add symbols and track them in a list fo symbols
+%
+% usage: \addsymbol[opt]{cmd}{vis}{exp}
+%          - opt -- plaintext version of the command, e.g., seq for \seq
+%          - cmd -- the macro to print the symbol, e.g., \seq
+%          - vis -- the actual code to be printed, e.g., \sigma
+%          - exp -- an explanation of the symbol, e.g., $\seq$ denotes an 
+%                   execution sequence.
+%
+%
+% use \listofsymbols to print a list of symbols (requires to compile twice)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% required packages
+\RequirePackage{ifthen}
+\RequirePackage{tocloft}
+%
+% the code
+\newcommand{\listofsymbolsname}{List of Symbols}
+\newlistof{symbols}{sym}{\listofsymbolsname}
+%
+\newcommand{\addsymbol}[4][]{%
+    \def\symbolcmd{}%
+    \ifthenelse{\equal{#1}{}}{}{%
+        \def\symbolcmd{\ [\texttt{\textbackslash #1}]}%
+    }%
+    \ifthenelse{\isundefined{#2}}{%
+        \newcommand{#2}{\ensuremath{#3}}%
+    }{%
+        \message{LaTeX Warning: Symbol \noexpand#2 is already defined, and will not be redefined. Use \noexpand\renewcommand to redefine the symbol. See \the\inputlineno}
+    }%
+    \refstepcounter{symbols}%
+    \addcontentsline{sym}{symbols}%
+    {\protect\ensuremath{#3} -- #4 \symbolcmd}\par%
+    %
+}%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% To avoid a lot of overhead for production, simply enable the following code 
+% or replace the code above. Whis will also yield \listofsymbols to return an 
+% empty list.
+% 
+% \renewcommand{\addsymbol}[4][]{%
+%     \ifthenelse{\isundefined{#2}}{%
+%         \newcommand{#2}{\ensuremath{#3}}%
+%     }{}%
+% }%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
